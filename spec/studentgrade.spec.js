@@ -28,3 +28,28 @@ describe("GRADING TEST: ", function() {
    });
 
 });
+
+  // Additional Test to ensure complete coverage
+  it("Handles multiple mode changes and moves", function() {
+   let rover = new Rover(100);
+   let commands = [
+     new Command("MODE_CHANGE", "LOW_POWER"),
+     new Command("MOVE", 2500),
+     new Command("MODE_CHANGE", "NORMAL"),
+     new Command("MOVE", 5000),
+     new Command("STATUS_CHECK")
+   ];
+   let message = new Message("TA multiple commands", commands);
+   let response = rover.receiveMessage(message);
+
+   expect(response.message).toEqual("TA multiple commands");
+   expect(response.results[0].completed).toBeTruthy();
+   expect(response.results[1].completed).toBeFalsy();
+   expect(response.results[2].completed).toBeTruthy();
+   expect(response.results[3].completed).toBeTruthy();
+   expect(response.results[4].roverStatus.position).toEqual(5000);
+   expect(response.results[4].roverStatus.mode).toEqual("NORMAL");
+   expect(response.results[4].roverStatus.generatorWatts).toEqual(110);
+ });
+
+
