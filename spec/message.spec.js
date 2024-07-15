@@ -5,5 +5,21 @@ const Command = require('../command.js');
 //       However, do NOT edit the grading tests for any reason and make sure to un-comment out your code to get the autograder to pass.
 
 describe("Message class", function() {
+    it("sets name and commands properties", function() {
+        const name = "TestMessage";
+        const commands = [new Command('type1'), new Command('type2')];
+        const message = new Message(name, commands);
+    
+        expect(message.name).toBe(name);
+        expect(message.commands).toBe(commands);
+      });
+    
+      it("has a default commands property as an empty array if not provided", function() {
+        const name = "TestMessage";
+        const message = new Message(name);
+    
+        expect(message.name).toBe(name);
+        expect(message.commands).toEqual([]);
+      });
+    });
 
-});
